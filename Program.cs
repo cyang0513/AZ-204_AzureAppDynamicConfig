@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Azure.Identity;
 
 namespace AzureAppDynamicConfig
 {
@@ -34,6 +35,13 @@ namespace AzureAppDynamicConfig
                                                                                                                 rf.Register("CHYA:WebApp:Dynamic:Signal", true);
                                                                                                                 rf.SetCacheExpiration(new TimeSpan(0,0,15));
                                                                                                              });
+
+                                                                                         //Config KV reference
+                                                                                         az.ConfigureKeyVault(kv =>
+                                                                                                              {
+                                                                                                                 kv.SetCredential(new AzureCliCredential());
+                                                                                                              }
+                                                                                         );
                                                                                       });
                                                                                    
                                                                                 });
